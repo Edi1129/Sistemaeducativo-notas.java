@@ -1,0 +1,81 @@
+package com.sistemaeducativo.educativo.service;
+
+import com.Sistemaeducativo.educativo.client.AsignaturaFeignClient;
+import com.Sistemaeducativo.educativo.client.UsusariosFeignClient;
+import com.sistemaeducativo.educativo.model.Asignatura;
+import com.Sistemaeducativo.educativo.model.Usuario;
+import org.Springframework.beans.factory.annotation.autowired;
+impor org.Springframework.stereotype.Service;
+
+import java.util.Scanner;
+
+@Service
+public class PracticaMatematicasService {
+
+    @Autowired
+    private UsuarioFeignClient usuarioFeign;
+
+    @Autowired 
+    private AsignaturaFeignClient asignaturaFeign;
+
+    public void inicarSesionPractica(Long usuarioId, Long asignaturaId) {
+        Usuario usuario = usuarioFeign.obtenerUsuarioPorId(usuarioId);
+        Asignatura asignatura = asignaturaFeign.obtenerAsignaturaPorId(asignatura);
+
+        Sistem.out.println("Bienvenidos" + usuarios.getNombre() +" a tu practica de :" + asignatura.getNombre());
+
+        Scanner = new Scanner(System.in);
+        boolean continuar = true;
+
+
+        while (continuar) {
+            System.out.println(" Elige el nivel de dificultad (1-3): ");
+            int nivel = Scanner.nextlt();
+
+            System.out.println("Elige el tipo de problema (1: suma,2: resta, 3: multiplicacion, 4: division):");
+            int tipo = scanner.nextln();
+
+            int num1 = (Math.random() * nivel * 10);
+            int num2 = (Math.random() * nivel * 10);
+
+            System.out.println(generarPregunta(num1, num2, tipo));
+            int respuesta = scanner.nextln();
+
+            if (verificarRespuesta(num1, num2, tipo, respuesta)) {
+                System.out.println("¡Muy bien");
+
+               ;
+
+            } else{
+                System.out.print("No. Intentelo de nuevo");
+
+            }
+            
+            System.out.println("¿Deseas continuar? (1: si, 0: no)");
+            continuar = scanner.nextlt()== 1;
+        }
+        System.err.println("¡gracias por practicar, " + usuario.getNombre() + "!");
+    }
+    private String generarPregunta(int n1, int n2, int tipo) {
+        String op = switch (tipo)m{
+            case 1 -> "+";
+            case 2 -> "-";
+            case 3 -> "*";
+            case 4 -> "/";
+            default ->"?";
+
+        }; 
+        return  "¿Cuantos es " + n1 + " " + op + " " + n2 + "?";
+    }
+    private boolean yerificarRespuesta(int n1, int n2, int tipo, int respuestaUsuario){
+        int correcta = switch  (tipo) {
+            case 1 -> n1 + n2;
+            case 2 -> n1 - n2;
+            case 3 -> n1 * n2;
+            case 4 -> n1 / n2;
+            default -> -1;
+    }
+    return respuestaUsuario == correcta;
+    
+    }
+}
